@@ -1,9 +1,9 @@
 {
-  "name": "Mastering Physics",
+  "name": "Quizlet Latex",
   "version": "0.0.1",
   "manifest_version": 3,
-  "description": "Utilities for Mastering physis",
-  "homepage_url": "https://github.com/Samuel-KW/Mastering-Physics",
+  "description": "Add Latex support to Quizlet sets",
+  "homepage_url": "https://github.com/Samuel-KW/Quizlet-Latex",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -22,8 +22,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://session.masteringphysics.com/myct/itemView*",
-        "https://mylabmastering.pearson.com/api/courses/*/launch?*"
+        "https://quizlet.com/*/*"
       ],
       "js": [
         "src/inject/inject.js"
