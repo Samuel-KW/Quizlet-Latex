@@ -1,15 +1,18 @@
-
-// Inject MathJax
-const MathJax = document.createElement('script');
-MathJax.src = chrome.runtime.getURL('src/inject/mathjax.js');
-MathJax.onload = () => {
-
+const loadScript = src => new Promise((resolve, reject) => {
 	const script = document.createElement('script');
-	script.src = chrome.runtime.getURL('src/inject/index.js');
-	script.onload = () => script.remove();
-	(document.head || document.documentElement).appendChild(script);
+	script.src = src;
+	
+	script.onload = () => resolve(script);
+	script.onerror = () => reject(script);
 
+	(document.head || document.documentElement).appendChild(script);
+});
+
+(async () => {
+	const MathJax = await loadScript(chrome.runtime.getURL('src/inject/mathjax.js'));
+	const script = await loadScript(chrome.runtime.getURL('src/inject/index.js'));
+	
 	MathJax.remove();
-}
-(document.head || document.documentElement).appendChild(MathJax);
+	script.remove();
+})();
 
