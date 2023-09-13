@@ -11,6 +11,9 @@ class QuizletLatex {
 	handleMode (mode) {
 		console.log(mode);
 
+		const ignored = ['sets', 'notes', 'upload', 'latest', 'courses', 'autosaved', 'study-path', 'explanations'];
+		if (!mode || ignored.includes(mode)) return;;
+
 		switch(mode) {
 			case 'flashcards':
 				this.observeFlashcards();
@@ -24,12 +27,27 @@ class QuizletLatex {
 				this.observeWrite();
 				break;
 
-			case 'study-path':
+			case 'spell':
+				this.observeSpell();
+				break;
+
+			case 'test':
+				this.observeTest();
 				break;
 
 			default:
 				this.observeHomepage();
 		}
+	}
+
+	observeTest () {
+		const carousel = document.getElementById('AssistantModeTarget');
+		this.watchAndLatex(carousel);
+	}
+
+	observeSpell () {
+		const carousel = document.getElementById('AssistantModeTarget');
+		this.watchAndLatex(carousel);
 	}
 
 	observeWrite () {
