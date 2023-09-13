@@ -10,19 +10,13 @@
     "128": "icons/icon128.png"
   },
   "default_locale": "en",
-  "background": {
-    "service_worker": "src/serviceworker/sw.js",
-    "type": "module"
-  },
   "permissions": [
-    "contentSettings",
-    "unlimitedStorage",
-    "storage"
+    "contentSettings"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://quizlet.com/*/*"
+        "https://quizlet.com/*"
       ],
       "js": [
         "src/inject/inject.js"
@@ -32,7 +26,7 @@
     }
   ],
   "web_accessible_resources": [{
-    "resources": ["src/inject/index.js"],
+    "resources": ["src/inject/index.js", "src/inject/mathjax.js"],
     "matches": ["<all_urls>"]
   }]
 }
