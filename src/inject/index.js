@@ -35,9 +35,18 @@ class QuizletLatex {
 				this.observeTest();
 				break;
 
+			case 'match':
+				this.observeMatch();
+				break;
+
 			default:
 				this.observeHomepage();
 		}
+	}
+
+	observeMatch () {
+		const carousel = document.getElementById('__next');
+		this.watchAndLatex(carousel);
 	}
 
 	observeTest () {
