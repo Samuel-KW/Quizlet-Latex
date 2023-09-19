@@ -9,9 +9,11 @@ const loadScript = src => new Promise((resolve, reject) => {
 });
 
 (async () => {
+	const instant = await loadScript(chrome.runtime.getURL('src/inject/instant.js'));
 	const MathJax = await loadScript(chrome.runtime.getURL('src/inject/mathjax.js'));
 	const script = await loadScript(chrome.runtime.getURL('src/inject/index.js'));
 	
+	instant.remove();
 	MathJax.remove();
 	script.remove();
 })();

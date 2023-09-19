@@ -26,7 +26,7 @@
     }
   ],
   "web_accessible_resources": [{
-    "resources": ["src/inject/index.js", "src/inject/mathjax.js", "src/inject/output/*"],
+    "resources": ["src/inject/index.js", "src/inject/mathjax.js", "src/inject/instant.js", "src/inject/output/*"],
     "matches": ["<all_urls>"]
   }]
 }
