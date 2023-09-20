@@ -50,8 +50,9 @@ class QuizletLatex {
 	}
 
 	observeTest () {
-		const carousel = document.getElementById('AssistantModeTarget');
-		this.watchAndLatex(carousel);
+		this.waitUntil('#AssistantModeTarget').then(carousel => {
+			this.watchAndLatex(carousel);
+		});
 	}
 
 	observeSpell () {
@@ -70,14 +71,16 @@ class QuizletLatex {
 	}
 
 	observeFlashcards () {
-		const carousel = document.querySelector('div[data-testid="Card"]')
-							.parentElement
-							.parentElement
-							.parentElement
-							.parentElement
-							.parentElement;
+		this.waitUntil('div[data-testid="Card"]').then(elem => {
+			const carousel = elem
+				.parentElement
+				.parentElement
+				.parentElement
+				.parentElement
+				.parentElement;
 
-		this.watchAndLatex(carousel);
+			this.watchAndLatex(carousel);
+		});
 	}
 
 	observeHomepage () {
@@ -121,6 +124,32 @@ class QuizletLatex {
 		
 		// Start observing
 		return observer.observe(element, config);
+	}
+
+	/**
+	 * Wait until an element exists
+	 * @param {string} query HTML element to observe
+	 * @param {Function} callback Callback function
+	 */
+	waitUntil (selector) {
+
+		return new Promise(resolve => {
+
+			if (document.querySelector(selector))
+				return resolve(document.querySelector(selector));
+	
+			const observer = new MutationObserver(mutations => {
+				if (document.querySelector(selector)) {
+					observer.disconnect();
+					resolve(document.querySelector(selector));
+				}
+			});
+	
+			observer.observe(document.body, {
+				childList: true,
+				subtree: true
+			});
+		});
 	}
 
 }
